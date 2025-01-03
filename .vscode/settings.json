@@ -28,7 +28,7 @@
   "files.exclude": {
     "**/.vscode": true,
     "**/.next": true,
-    // "**/.git": false,
+    "**/.git": true,
     "**/node_modules": true,
     "**/next-env.d.ts": true
     // "**/components.json": true
