@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -11,10 +12,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import ROUTES from "@/constants/routes";
+import { cn } from "@/lib/utils";
 
 import NavLinks from "./NavLinks";
 
-const MobileNavigation = () => {
+const MobileNavigation = async () => {
+  const session = await auth();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -51,7 +55,7 @@ const MobileNavigation = () => {
             </section>
           </SheetClose>
 
-          <div className="flex flex-col gap-3">
+          <div className={cn(session ? "hidden" : "flex flex-col gap-3")}>
             <SheetClose asChild>
               <Link href={ROUTES.SIGN_IN}>
                 <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
@@ -66,6 +70,26 @@ const MobileNavigation = () => {
                   Sign Up
                 </Button>
               </Link>
+            </SheetClose>
+          </div>
+
+          <div className={cn(!session ? "hidden" : "flex flex-col gap-3")}>
+            <SheetClose asChild>
+              <form
+                className="px-10 pt-[100px]"
+                action={async () => {
+                  "use server";
+
+                  await signOut({ redirectTo: ROUTES.HOME });
+                }}
+              >
+                <Button
+                  type="submit"
+                  className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none"
+                >
+                  Log Out
+                </Button>
+              </form>
             </SheetClose>
           </div>
         </div>
