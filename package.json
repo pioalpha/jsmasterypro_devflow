@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node --max-old-space-size=512 node_modules/.bin/next dev --turbopack",
-    "dev2": "next dev",
+    "dev": "next dev --turbopack",
+    "dev2": "node --max-old-space-size=1024 node_modules/.bin/next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -28,6 +28,7 @@
     "next-auth": "^5.0.0-beta.25",
     "next-themes": "^0.4.4",
     "prettier": "^3.4.2",
+    "query-string": "^9.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
@@ -48,7 +49,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   },
-  "packageManager": "npm@10.9.2",
+  "packageManager": "npm@10.8.2",
   "overrides": {
     "react": "$react",
     "react-dom": "$react-dom"
