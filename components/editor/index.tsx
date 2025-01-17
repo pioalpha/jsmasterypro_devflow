@@ -32,6 +32,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { basicDark } from "cm6-theme-basic-dark";
 import { useTheme } from "next-themes";
 import type { ForwardedRef } from "react";
+
 import "./dark-editor.css";
 
 interface Props {
@@ -88,36 +89,38 @@ const Editor = ({
         diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "" }),
         toolbarPlugin({
           toolbarContents: () => (
-            <ConditionalContents
-              options={[
-                {
-                  when: (editor) => editor?.editorType === "codeblock",
-                  contents: () => <ChangeCodeMirrorLanguage />,
-                },
-                {
-                  fallback: () => (
-                    <>
-                      <UndoRedo />
-                      <Separator />
+            <>
+              <ConditionalContents
+                options={[
+                  {
+                    when: (editor) => editor?.editorType === "codeblock",
+                    contents: () => <ChangeCodeMirrorLanguage />,
+                  },
+                  {
+                    fallback: () => (
+                      <p style={{ display: "flex", flexWrap: "wrap" }}>
+                        <UndoRedo />
+                        <Separator />
 
-                      <BoldItalicUnderlineToggles />
-                      <Separator />
+                        <BoldItalicUnderlineToggles />
+                        <Separator />
 
-                      <ListsToggle />
-                      <Separator />
+                        <ListsToggle />
+                        <Separator />
 
-                      <CreateLink />
-                      <InsertImage />
-                      <Separator />
+                        <CreateLink />
+                        <InsertImage />
+                        <Separator />
 
-                      <InsertTable />
-                      <InsertThematicBreak />
-                      <InsertCodeBlock />
-                    </>
-                  ),
-                },
-              ]}
-            />
+                        <InsertTable />
+                        <InsertThematicBreak />
+                        <InsertCodeBlock />
+                      </p>
+                    ),
+                  },
+                ]}
+              />
+            </>
           ),
         }),
       ]}
