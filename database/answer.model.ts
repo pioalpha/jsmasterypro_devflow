@@ -16,11 +16,11 @@ const AnswerSchema = new Schema<IAnswer>(
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
   },
-  // Gera o timestamp quando a questão é criada
+  // Gera o timestamp quando a resposta é criada
   { timestamps: true }
 );
 
-// Verifica se o modelo de questão já está registrado (models), senão cria um novo
-const Answer = models?.answer || model<IAnswer>("Answer", AnswerSchema);
+// Verifica se o modelo de resposta já está registrado (models), senão cria um novo
+const Answer = models?.Answer || model<IAnswer>("Answer", AnswerSchema);
 
 export default Answer;

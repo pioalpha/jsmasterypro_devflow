@@ -23,6 +23,6 @@ const AccountSchema = new Schema<IAccount>(
 );
 
 // Verifica se o modelo de usuário já está registrado (models), senão cria um novo
-const Account = models?.account || model<IAccount>("Account", AccountSchema);
+const Account = models?.Account || model<IAccount>("Account", AccountSchema);
 
 export default Account;

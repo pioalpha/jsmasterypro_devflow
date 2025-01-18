@@ -9,6 +9,6 @@ const ModelSchema = new Schema<IModel>(
 );
 
 // Verifica se o modelo já está registrado (models), senão cria um novo
-const Model = models?.model || model<IModel>("Model", ModelSchema);
+const Model = models?.Model || model<IModel>("Model", ModelSchema);
 
 export default Model;

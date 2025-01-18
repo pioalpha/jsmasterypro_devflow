@@ -27,6 +27,6 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Verifica se o modelo de usuário já está registrado (models), senão cria um novo
-const User = models?.user || model<IUser>("User", UserSchema);
+const User = models?.User || model<IUser>("User", UserSchema);
 
 export default User;
