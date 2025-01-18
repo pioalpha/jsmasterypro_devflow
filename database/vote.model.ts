@@ -14,11 +14,11 @@ const VoteSchema = new Schema<IVote>(
     type: { type: String, enum: ["question", "answer"], required: true },
     voteType: { type: String, enum: ["upvote", "downvote"], required: true },
   },
-  // Gera o timestamp quando a questão é criada
+  // Gera o timestamp quando o voto é criada
   { timestamps: true }
 );
 
-// Verifica se o modelo de questão já está registrado (models), senão cria um novo
+// Verifica se o modelo de voto já está registrado (models), senão cria um novo
 const Vote = models?.Vote || model<IVote>("Vote", VoteSchema);
 
 export default Vote;
