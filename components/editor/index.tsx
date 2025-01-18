@@ -98,7 +98,7 @@ const Editor = ({
                   },
                   {
                     fallback: () => (
-                      <p style={{ display: "flex", flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", flexWrap: "wrap" }}>
                         <UndoRedo />
                         <Separator />
 
@@ -115,7 +115,7 @@ const Editor = ({
                         <InsertTable />
                         <InsertThematicBreak />
                         <InsertCodeBlock />
-                      </p>
+                      </div>
                     ),
                   },
                 ]}
