@@ -3,8 +3,8 @@ import { model, models, Schema, Types } from "mongoose";
 export interface IVote {
   author: Types.ObjectId;
   id: Types.ObjectId;
-  type: string;
-  voteType: string;
+  type: "question" | "asnwer";
+  voteType: "upvote" | "downvote";
 }
 
 const VoteSchema = new Schema<IVote>(
