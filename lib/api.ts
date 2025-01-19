@@ -23,6 +23,23 @@ const makeApiRequest = async <T>(
 };
 
 export const api = {
+  auth: {
+    oAuthSignIn: ({
+      user,
+      provider,
+      providerAccountId,
+    }: SignInWithOAuthParams) =>
+      makeApiRequest<unknown>(
+        `${API_BASE_URL}/auth/signin-with-oauth`,
+        "POST",
+        {
+          user,
+          provider,
+          providerAccountId,
+        }
+      ),
+  },
+
   users: {
     getAll: () => makeApiRequest<IUser[]>(`${API_BASE_URL}/users`),
     getById: (id: string) =>
