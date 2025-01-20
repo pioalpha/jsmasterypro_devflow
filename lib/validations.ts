@@ -123,3 +123,16 @@ export const SignInWhitOAuthSchema = z.object({
     image: z.string().url("Invalid image URL").optional(),
   }),
 });
+
+export const GetQuestionSchema = z.object({
+  questionId: z.string().min(1, { message: "Question ID is required." }),
+});
+
+export const EditQuestionSchema = z.intersection(
+  AskQuestionSchema,
+  GetQuestionSchema
+);
+
+// export const EditQuestionSchema = AskQuestionSchema.extend({
+//  questionId: z.string().min(1, { message: "Question ID is required." }),
+// });

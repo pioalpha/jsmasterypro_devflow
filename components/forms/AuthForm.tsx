@@ -62,7 +62,7 @@ const AuthForm = <T extends FieldValues>({
             : "Signed up Successfully",
       });
 
-      router.push(redirectTo); // TODO: caso haja, Enviar para ?RedirectTo=
+      router.replace(redirectTo);
     } else {
       toast({
         title: `Error ${result?.status}`,
