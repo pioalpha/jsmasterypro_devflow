@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   DefaultValues,
   FieldValues,
@@ -32,6 +32,7 @@ interface AuthFormProps<T extends FieldValues> {
   defaultValues: T;
   onSubmit: (data: T) => Promise<ActionResponse>;
   formType: "SIGN_IN" | "SIGN_UP";
+  redirectTo?: string;
 }
 
 const AuthForm = <T extends FieldValues>({
@@ -41,6 +42,8 @@ const AuthForm = <T extends FieldValues>({
   onSubmit,
 }: AuthFormProps<T>) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") || ROUTES.HOME;
   // 1. Define your form.
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -59,7 +62,7 @@ const AuthForm = <T extends FieldValues>({
             : "Signed up Successfully",
       });
 
-      router.push(ROUTES.HOME);
+      router.push(redirectTo); // TODO: caso haja, Enviar para ?RedirectTo=
     } else {
       toast({
         title: `Error ${result?.status}`,
