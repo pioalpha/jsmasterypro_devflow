@@ -20,7 +20,7 @@ import {
   GetQuestionSchema,
   PaginatedSearchParamsSchema,
 } from "../validations";
-import { getPaginatedData } from "./model.actions";
+import { getPaginatedData } from "./model.action";
 
 export async function createQuestion(
   params: CreateQuestionParams

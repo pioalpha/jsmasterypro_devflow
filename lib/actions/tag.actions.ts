@@ -13,7 +13,7 @@ import {
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { PaginatedSearchParamsSchema } from "../validations";
-import { getPaginatedData } from "./model.actions";
+import { getPaginatedData } from "./model.action";
 
 export const getTags2 = async (
   params: PaginatedSearchParams
