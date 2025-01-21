@@ -15,7 +15,7 @@ import handleError from "../handlers/error";
 import { PaginatedSearchParamsSchema } from "../validations";
 import { getPaginatedData } from "./model.actions";
 
-export const getTags = async (
+export const getTags2 = async (
   params: PaginatedSearchParams
 ): Promise<ActionResponse<{ tags: GlobalTag[]; isNext: boolean }>> => {
   const validationResult = await action({
@@ -73,7 +73,7 @@ export const getTags = async (
   }
 };
 
-export const getTags2 = async (params: PaginatedSearchParams) =>
+export const getTags = async (params: PaginatedSearchParams) =>
   getPaginatedData(Tag, params, {
     queryFields: ["name"],
     sortMapping: {
@@ -83,5 +83,4 @@ export const getTags2 = async (params: PaginatedSearchParams) =>
       name: { name: 1 },
     },
     defaultSort: { questions: -1 },
-    dataKey: "tags",
   });

@@ -7,9 +7,9 @@ const Tags = async () => {
     // query: "java",
   });
 
-  const { tags } = data || {};
+  const { items } = data || {};
 
-  console.log("TAGS", JSON.stringify(tags, null, 2));
+  console.log("TAGS", JSON.stringify(items, null, 2));
 
   return <div>Tags</div>;
 };

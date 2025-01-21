@@ -16,6 +16,7 @@ interface SearchParams {
 const Home = async ({ searchParams }: SearchParams) => {
   const { page, pageSize, query, filter } = await searchParams;
 
+  // const { success, data, error } = await getQuestions({
   const { success, data, error } = await getQuestions({
     page: Number(page) || 1,
     pageSize: Number(pageSize) || 10,
@@ -23,7 +24,7 @@ const Home = async ({ searchParams }: SearchParams) => {
     filter: filter || "",
   });
 
-  const { questions } = data || {};
+  const { items } = data || {};
 
   return (
     <>
@@ -48,7 +49,7 @@ const Home = async ({ searchParams }: SearchParams) => {
       <DataRenderer
         success={success}
         error={error}
-        data={questions}
+        data={items}
         empty={EMPTY_QUESTION}
         render={(questions) => (
           <div className="mt-10 flex w-full flex-col gap-6">

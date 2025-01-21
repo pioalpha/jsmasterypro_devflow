@@ -20,7 +20,7 @@ import {
   GetQuestionSchema,
   PaginatedSearchParamsSchema,
 } from "../validations";
-// import { getPaginatedData, getPaginatedData2 } from "./model.actions";
+import { getPaginatedData } from "./model.actions";
 
 export async function createQuestion(
   params: CreateQuestionParams
@@ -220,7 +220,7 @@ export async function getQuestion(
   }
 }
 
-export async function getQuestions(
+export async function getQuestions2(
   params: PaginatedSearchParams
 ): Promise<ActionResponse<{ questions: GlobalQuestion[]; isNext: boolean }>> {
   const validationResult = await action({
@@ -287,64 +287,26 @@ export async function getQuestions(
   }
 }
 
-// export const getQuestions2 = async (params: PaginatedSearchParams) =>
-//   getPaginatedData(Question, params, {
-//     queryFields: ["title", "content"],
-//     sortMapping: {
-//       newest: { createdAt: -1 },
-//       unanswered: { answers: 0, createdAt: -1 },
-//       popular: { upvotes: -1 },
-//     },
-//     defaultSort: { createdAt: -1 },
-//     extraFilter: (filter) => {
-//       if (filter === "recommended") {
-//         return { _id: { $exists: false } };
-//       }
-//       return {};
-//     },
-//     populateFields: [
-//       { field: "tags", select: "name" },
-//       { field: "author", select: "name image" },
-//     ],
-//     dataKey: "questions",
-//   });
-
-// export const getQuestions3 = async (
-//   params: PaginatedSearchParams
-// ): Promise<ActionResponse<{ items: GlobalQuestion[]; isNext: boolean }>> => {
-//   const sortOptions = {
-//     newest: { createdAt: -1 },
-//     unanswered: { createdAt: -1 },
-//     popular: { upvotes: -1 },
-//   };
-
-//   const customFilterQuery = (
-//     filter: string,
-//     query: string | undefined,
-//     baseQuery: FilterQuery<typeof Question>
-//   ) => {
-//     if (filter === "unanswered") {
-//       baseQuery.answers = 0;
-//     }
-//     if (query) {
-//       baseQuery.$or = [
-//         { title: { $regex: new RegExp(query, "i") } },
-//         { content: { $regex: new RegExp(query, "i") } },
-//       ];
-//     }
-//   };
-
-//   }
-
-//   return getPaginatedData2<GlobalQuestion>(
-//     Question,
-//     params,
-//     sortOptions,
-//     customFilterQuery,
-//     [
-//       { field: "tags", select: "name" },
-//       { field: "author", select: "name image" },
-//     ]
-
-//   );
-// };
+export const getQuestions = async (params: PaginatedSearchParams) =>
+  getPaginatedData<GlobalQuestion>(Question, params, {
+    queryFields: ["title", "content"],
+    sortMapping: {
+      newest: { createdAt: -1 },
+      unanswered: { createdAt: -1 },
+      popular: { upvotes: -1 },
+    },
+    defaultSort: { createdAt: -1 },
+    extraFilter: (filter) => {
+      if (filter === "recommended") {
+        return { _id: { $exists: false } };
+      }
+      if (filter === "unanswered") {
+        return { answers: 0 };
+      }
+      return {};
+    },
+    populateFields: [
+      { field: "tags", select: "name" },
+      { field: "author", select: "name image" },
+    ],
+  });
