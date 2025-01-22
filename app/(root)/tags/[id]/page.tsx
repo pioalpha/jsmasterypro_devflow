@@ -6,7 +6,7 @@ import { EMPTY_QUESTION } from "@/constants/states";
 import { getTagQuestions } from "@/lib/actions/tag.action";
 import { RouteParams } from "@/types/global";
 
-const page = async ({ params, searchParams }: RouteParams) => {
+const TagDetails = async ({ params, searchParams }: RouteParams) => {
   const { id } = await params;
   const { page, pageSize, query } = await searchParams;
 
@@ -49,4 +49,4 @@ const page = async ({ params, searchParams }: RouteParams) => {
   );
 };
 
-export default page;
+export default TagDetails;
