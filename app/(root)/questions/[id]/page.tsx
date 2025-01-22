@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 import TagCard from "@/components/cards/TagCard";
 import Preview from "@/components/editor/Preview";
