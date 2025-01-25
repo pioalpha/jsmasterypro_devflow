@@ -6,9 +6,11 @@ import Preview from "@/components/editor/Preview";
 import Metric from "@/components/Metric";
 import UserAvatar from "@/components/UserAvatar";
 import ROUTES from "@/constants/routes";
-import { getQuestion } from "@/lib/actions/question.action";
+import { getQuestion, incrementViews } from "@/lib/actions/question.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
 import { RouteParams, Tag } from "@/types/global";
+
+// import View from "./View";
 
 const QuestionDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
@@ -16,10 +18,22 @@ const QuestionDetails = async ({ params }: RouteParams) => {
 
   if (!success || !question) return redirect("/404");
 
-  const { author, createdAt, answers, views, tags, content, title } = question;
+  let views;
+
+  const { success: success2, data } = await incrementViews({
+    questionId: id,
+  });
+  if (!success2 || !data) {
+    views = question.views;
+  } else {
+    views = data.views;
+  }
+
+  const { author, createdAt, answers, tags, content, title } = question;
 
   return (
     <>
+      {/* <View questionId={id} /> */}
       <div className="flex-start w-full flex-col">
         <div className="flex w-full flex-col-reverse justify-between">
           <div className="flex items-center justify-start gap-1">

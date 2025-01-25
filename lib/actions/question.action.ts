@@ -1,7 +1,9 @@
 "use server";
 
 import mongoose, { FilterQuery } from "mongoose";
+// import { revalidatePath } from "next/cache";
 
+// import ROUTES from "@/constants/routes";
 import Question, { IQuestionDoc } from "@/database/question.model";
 import Tag, { ITagDoc } from "@/database/tag.model";
 import TagQuestion from "@/database/tag_question.model";
@@ -9,6 +11,7 @@ import {
   CreateQuestionParams,
   EditQuestionParams,
   GetQuestionParams,
+  IncrementViewsParams,
 } from "@/types/action";
 import {
   ActionResponse,
@@ -23,6 +26,7 @@ import {
   AskQuestionSchema,
   EditQuestionSchema,
   GetQuestionSchema,
+  IncrementViewsParamsSchema,
   PaginatedSearchParamsSchema,
 } from "../validations";
 import { getPaginatedData } from "./model.action";
@@ -317,3 +321,35 @@ export const getQuestions = async (params: PaginatedSearchParams) =>
       { field: "author", select: "name image" },
     ],
   });
+
+export async function incrementViews(
+  params: IncrementViewsParams
+): Promise<ActionResponse<{ views: number }>> {
+  const validationResult = await action({
+    params,
+    schema: IncrementViewsParamsSchema,
+  });
+
+  if (validationResult instanceof Error) {
+    return handleError(validationResult) as ErrorResponse;
+  }
+
+  const { questionId } = validationResult.params!;
+
+  try {
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+
+    question.views += 1;
+    await question.save();
+
+    // revalidatePath(ROUTES.QUESTION(questionId));
+
+    return { success: true, data: { views: question.views } };
+  } catch (error) {
+    return handleError(error) as ErrorResponse;
+  }
+}
